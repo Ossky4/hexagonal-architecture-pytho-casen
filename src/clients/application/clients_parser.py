@@ -3,6 +3,7 @@ import json
 from abc import ABC, abstractmethod
 from io import StringIO
 
+from src.clients.application.dto import ExportFormat
 from src.clients.domain.client import Client
 
 
@@ -34,11 +35,11 @@ class JSONClientsParser(IClientsParser):
 
 class ParserFactory:
     @staticmethod
-    def build(expected_output: str) -> IClientsParser:
-        if expected_output == "CSV":
+    def build(expected_output: ExportFormat) -> IClientsParser:
+        if expected_output == ExportFormat.CSV:
             return CSVClientsParser()
 
-        if expected_output == "JSON":
+        if expected_output == ExportFormat.JSON:
             return JSONClientsParser()
 
         raise ValueError("Can not build parser based on provided value!")
