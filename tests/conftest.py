@@ -1,3 +1,4 @@
+import os
 from typing import Iterator
 
 import pytest
@@ -6,11 +7,15 @@ from pymongo import MongoClient
 from pymongo.database import Database
 from pytest import MonkeyPatch
 
-from src.app import app
+
+os.environ.setdefault("S3_CLIENTS_BUCKET", "test-bucket")
+
 
 
 @pytest.fixture()
 def test_client() -> TestClient:
+    from src.app import app
+
     return TestClient(app)
 
 
